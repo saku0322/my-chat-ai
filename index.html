@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>Chat AI with All Features</title>
+    <title>Chat AI with Cloudflare Proxy</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         :root {
@@ -209,23 +209,6 @@
             localStorage.setItem('chatAppTheme', isDark ? 'dark' : 'light');
         }
 
-        // モデル選択
-        async function loadModels() {
-            try {
-                const res = await fetch('https://7ebd-2400-2412-d244-e400-4061-9a0c-eb13-71da.ngrok-free.app/v1/models ');
-                const data = await res.json();
-                const select = document.getElementById('modelSelect');
-                data.models.forEach(model => {
-                    const option = document.createElement('option');
-                    option.value = model.id;
-                    option.textContent = model.id;
-                    select.appendChild(option);
-                });
-            } catch (error) {
-                console.error("モデル取得エラー:", error);
-            }
-        }
-
         // チャット送信
         async function sendMessage() {
             const input = document.getElementById('userInput');
@@ -242,7 +225,7 @@
             appendMessage(loading);
 
             try {
-                const res = await fetch('https://7ebd-2400-2412-d244-e400-4061-9a0c-eb13-71da.ngrok-free.app/v1/chat/completions ', {
+                const res = await fetch('https://livestock-processors-priorities-medium.trycloudflare.com/v1/chat/completions ', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
